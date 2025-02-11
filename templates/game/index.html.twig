@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des jeux{% endblock %}
+
+{% block body %}
+    <h1>Liste des jeux</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Créé le</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for game in games %}
+            <tr>
+                <td>{{ game.id }}</td>
+                <td>{{ game.title }}</td>
+                <td>{{ game.description }}</td>
+                <td>{{ game.createdAt ? game.createdAt|date('d-m-Y') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_game_show', {'id': game.id}) }}">Voir</a>
+                    {% if app.user %}
+                    <a href="{{ path('app_game_edit', {'id': game.id}) }}">Modifier</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun jeu créé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if app.user %}
+    <a href="{{ path('app_game_new') }}">Nouvelle fiche de jeu</a>
+    {% else %}
+        <p class="h2">Vous devez être connecté pour ajouter une nouvelle fiche de jeu</p>
+    {% endif %}
+{% endblock %}
