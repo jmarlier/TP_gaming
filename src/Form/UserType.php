@@ -18,7 +18,7 @@ class UserType extends AbstractType
         $builder
             ->add('email')
             // ->add('roles')
-            ->add('password', RepeatedType::class, [
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent correspondre.',
                 'required' => false, // Permet de ne pas forcer la modification du mot de passe

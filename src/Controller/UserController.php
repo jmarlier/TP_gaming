@@ -8,12 +8,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-use App\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\SecurityBundle\Security;
 
-
-
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Form\RegistrationFormType;
 
 final class UserController extends AbstractController{
     #[Route('/user', name: 'app_user_index')]
@@ -34,19 +33,24 @@ final class UserController extends AbstractController{
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
 
-    public function edit(Request $request, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, UserPasswordHasherInterface $userPasswordHasher,EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
-
+    
+        // redirection si aucun user connecté vers LOGIN
     if (!$user) {
         return $this->redirectToRoute('app_login');
     }
     
-    $form = $this->createForm(UserType::class, $user);
+    $form = $this->createForm(RegistrationFormType::class, $user);
     $form->handleRequest($request);
 
 
     if ($form->isSubmitted() && $form->isValid()) {
+
+
+        $plainPassword = $form->get('plainPassword')->getData();
+        $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
         $entityManager->flush();
 
