@@ -7,3 +7,11 @@ controllers:
 GamingIndex:
     path: /
     controller: App\Controller\GameController::index
+
+easyadmin:
+    resource: .
+    type: easyadmin.routes
+
+dashboard:
+    path: /admin
+    controller: App\Controller\Admin\DashboardController::index   
