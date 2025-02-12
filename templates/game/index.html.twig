@@ -16,13 +16,16 @@
             </tr>
         </thead>
         <tbody>
+        
         {% for game in games %}
+        {% if app.user.id == game.user.id or 'ROLE_ADMIN' in app.user.roles %}
             <tr>
                 <td>{{ game.id }}</td>
                 <td>{{ game.title }}</td>
                 <td>{{ game.description }}</td>
                 <td>{{ game.createdAt ? game.createdAt|date('d-m-Y') : '' }}</td>
                 <td><img src="{{ asset ('images/games/'~ game.image) }}" alt=""></td>
+            
                 <td>
                     <a href="{{ path('app_game_show', {'id': game.id}) }}">Voir</a>
                     {% if app.user %}
@@ -30,11 +33,13 @@
                     {% endif %}
                 </td>
             </tr>
+        {% endif %}
         {% else %}
             <tr>
                 <td colspan="5">Aucun jeu créé</td>
             </tr>
         {% endfor %}
+        
         </tbody>
     </table>
     {% if app.user %}

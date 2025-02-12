@@ -10,5 +10,5 @@
     <button type="submit" class="btn btn-primary">Enregistrer</button>
     {{ form_end(form) }}
 
-    <a href="{{ path('app_user_edit', {'id': app.user.id}) }}" class="btn btn-secondary">Annuler</a>
+    <a href="{{ path('app_user_index', {'id': app.user.id}) }}" class="btn btn-secondary">Annuler</a>
 {% endblock %}

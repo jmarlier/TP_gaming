@@ -10,6 +10,8 @@ use phpDocumentor\Reflection\DocBlock\Tags\Factory\ReturnFactory;
 use Symfony\Component\HttpFoundation\Response;
 
 use App\Entity\User;
+use App\Entity\Game;
+use App\Entity\Comment;
 
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
@@ -30,6 +32,8 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-home');
         yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', User::class);
+        yield MenuItem::linkToCrud('Jeux', 'fa-solid fa-gamepad', Game::class);
+        yield MenuItem::linkToCrud('Commentaires', 'fa-solid fa-comment', Comment::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
