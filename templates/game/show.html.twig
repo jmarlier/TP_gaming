@@ -26,6 +26,12 @@
 				<th>Fiche créée le</th>
 				<td>{{ game.createdAt ? game.createdAt|date('d-m-Y') : '' }}</td>
 			</tr>
+			<tr>
+				<th>Image</th>
+				<td>
+					<img src="{{ asset ('images/games/'~ game.image) }}" alt="">
+				</td>
+			</tr>
 		</tbody>
 	</table>
 

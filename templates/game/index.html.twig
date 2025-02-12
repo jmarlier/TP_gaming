@@ -22,6 +22,7 @@
                 <td>{{ game.title }}</td>
                 <td>{{ game.description }}</td>
                 <td>{{ game.createdAt ? game.createdAt|date('d-m-Y') : '' }}</td>
+                <td><img src="{{ asset ('images/games/'~ game.image) }}" alt=""></td>
                 <td>
                     <a href="{{ path('app_game_show', {'id': game.id}) }}">Voir</a>
                     {% if app.user %}
